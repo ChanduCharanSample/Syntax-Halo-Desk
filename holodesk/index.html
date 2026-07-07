@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax HoloDesk | AI Overlay</title>
+    <style>
+        :root {
+            --neon-cyan: #00f2ff;
+            --neon-purple: #bc13fe;
+            --glass: rgba(0, 242, 255, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Futuristic Background Grid */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+            border: 2px solid var(--neon-cyan);
+            box-sizing: border-box;
+            box-shadow: inset 0 0 50px rgba(0, 242, 255, 0.2);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.7; box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.2); }
+            to { opacity: 1; box-shadow: inset 0 0 60px rgba(0, 242, 255, 0.4); }
+        }
+
+        /* Top HUD */
+        .hud-top {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            border-radius: 50px;
+            border: 1px solid var(--neon-cyan);
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .status-active { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+
+        /* Left Info Panel */
+        .info-panel {
+            position: absolute;
+            top: 100px;
+            left: 30px;
+            padding: 20px;
+            border-left: 3px solid var(--neon-cyan);
+            background: linear-gradient(90deg, var(--glass), transparent);
+        }
+
+        .gesture-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--neon-purple);
+        }
+
+        #current-gesture {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-shadow: 0 0 15px white;
+        }
+
+        /* Bottom Dock */
+        .dock {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dock-item {
+            width: 50px;
+            height: 50px;
+            background: var(--glass);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .dock-item:hover {
+            transform: translateY(-10px);
+            background: var(--neon-cyan);
+            color: black;
+        }
+
+        /* Clock */
+        .clock {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 1.5rem;
+            font-family: monospace;
+            color: var(--neon-cyan);
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 242, 255, 0.1);
+            position: absolute;
+            top: 0;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            from { top: 0; }
+            to { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <div class="scanline"></div>
+
+    <div class="hud-top">
+        <div class="status-active">SYSTEM: ACTIVE</div>
+        <div id="fps-counter">FPS: 0</div>
+        <div style="color: var(--neon-purple)">SYNTAX HOLODESK V1.0</div>
+    </div>
+
+    <div class="info-panel">
+        <div class="gesture-label">AI Hand Protocol</div>
+        <div id="current-gesture">SCANNING...</div>
+    </div>
+
+    <div class="clock" id="clock">00:00:00</div>
+
+    <div class="dock">
+        <div class="dock-item">📂</div>
+        <div class="dock-item">🌐</div>
+        <div class="dock-item">⚙️</div>
+        <div class="dock-item">✉️</div>
+        <div class="dock-item">💬</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+
+        async function fetchStatus() {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                
+                document.getElementById('current-gesture').innerText = data.gesture;
+                document.getElementById('fps-counter').innerText = `FPS: ${data.fps}`;
+                
+                if (data.paused) {
+                    document.body.style.filter = "grayscale(1) contrast(1.2)";
+                } else {
+                    document.body.style.filter = "none";
+                }
+            } catch (e) {
+                console.error("Connection to HoloDesk lost.");
+            }
+        }
+
+        setInterval(fetchStatus, 100);
+    </script>
+</body>
+</html>
