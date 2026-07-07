@@ -40,7 +40,7 @@ Syntax-HoloDesk/
 Clone the repository
 
 ```bash
-git clone https://github.com/your-username/Syntax-HoloDesk.git
+git clone https://github.com/ChanduCharanSample/Syntax-Halo-Desk.git
 cd Syntax-HoloDesk
 ```
 
