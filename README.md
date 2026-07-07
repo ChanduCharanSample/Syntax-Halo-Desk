@@ -1,24 +1,18 @@
-# Syntax-Halo-Desk
-An AI-powered coding assistance and productivity platform for students and developers, featuring code support, collaboration, project management, and learning resources.
-
 # ✨ Syntax HoloDesk
 
-Syntax HoloDesk is an AI-powered virtual desktop system that enables users to interact with their computer using hand gestures instead of traditional input devices. Leveraging computer vision and machine learning, the application recognizes hand movements in real time and translates them into desktop actions, creating a natural and touchless user experience.
-
----
+Syntax HoloDesk is an AI-powered gesture-controlled desktop interface that enables touchless computer interaction using computer vision. The system recognizes real-time hand gestures through a webcam and converts them into desktop actions such as cursor movement, clicking, scrolling, dragging, and system controls.
 
 ## 🚀 Features
 
-- ✋ Real-time hand gesture recognition
-- 🖱️ Cursor movement using hand tracking
-- 👆 Gesture-based clicking
-- 📜 Scroll control using gestures
-- 🤖 AI-powered gesture detection
-- ⚡ Low-latency processing
-- 🌐 Flask-based web interface
-- 🎯 User-friendly and touchless interaction
-
----
+- ✋ Real-time hand tracking
+- 🖱️ Cursor movement using hand gestures
+- 👆 Single click & double click
+- 🤏 Pinch-and-drag support
+- 📜 Gesture-based scrolling
+- ✊ Pause/Resume gesture
+- 🖥️ Minimize all windows gesture (Win + D)
+- ⚡ Live FPS monitoring
+- 🌐 Holographic web dashboard
 
 ## 🛠️ Tech Stack
 
@@ -26,20 +20,20 @@ Syntax HoloDesk is an AI-powered virtual desktop system that enables users to in
 - OpenCV
 - MediaPipe
 - Flask
+- PyAutoGUI
 - NumPy
-
----
+- HTML
+- CSS
+- JavaScript
 
 ## 📂 Project Structure
 
 ```
 Syntax-HoloDesk/
 │── app.py
-│── index,html
+│── index.html
 │── README.md
 ```
-
----
 
 ## ⚙️ Installation
 
@@ -47,18 +41,13 @@ Clone the repository
 
 ```bash
 git clone https://github.com/your-username/Syntax-HoloDesk.git
-```
-
-Navigate to the project
-
-```bash
 cd Syntax-HoloDesk
 ```
 
 Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install opencv-python mediapipe flask pyautogui numpy
 ```
 
 Run the application
@@ -67,31 +56,40 @@ Run the application
 python app.py
 ```
 
----
+Open your browser and visit
 
-## 🎯 How It Works
+```
+http://localhost:5000
+```
 
-1. Captures live video from the webcam.
-2. Detects and tracks hand landmarks using MediaPipe.
-3. Recognizes predefined hand gestures.
-4. Converts gestures into desktop commands.
-5. Executes actions like cursor movement, clicking, and scrolling in real time.
+## 🎮 Supported Gestures
 
----
+| Gesture | Action |
+|---------|--------|
+| Two Fingers | Cursor Movement |
+| Pinch | Click / Drag |
+| Long Pinch | Double Click |
+| Three Fingers | Scroll |
+| Open Palm | Minimize All Windows |
+| Closed Fist | Pause System |
+| Open Palm (after pause) | Resume System |
 
-## 🔮 Future Enhancements
+## 📸 Preview
 
-- Multi-hand gesture support
+A futuristic holographic dashboard displays:
+- Current gesture
+- System status
+- FPS
+- Digital clock
+
+## 🔮 Future Improvements
+
+- Multi-hand support
 - Custom gesture training
-- Voice assistant integration
-- Virtual keyboard
-- Gesture customization
-- Cross-platform optimization
-
----
+- Volume and brightness control
+- Voice commands
+- Cross-platform support
 
 ## 👩‍💻 Author
 
 **Pothina Chandrika Rani**
-
-Built with ❤️ using Python, OpenCV, MediaPipe, and Flask.
